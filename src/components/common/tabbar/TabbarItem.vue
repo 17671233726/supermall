@@ -19,8 +19,8 @@ export default {
     path: String,
     activeColor: {
       type: String,
-      default: "red"
-    }
+      default: "red",
+    },
   },
   computed: {
     isActive() {
@@ -28,17 +28,17 @@ export default {
     },
     activeStyle() {
       return this.isActive ? { color: this.activeColor } : {};
-    }
+    },
   },
   methods: {
     itemClike() {
       this.$router.push(this.path);
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .tabbar-item {
   flex: 1;
   text-align: center;

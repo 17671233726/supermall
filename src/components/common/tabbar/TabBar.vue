@@ -8,11 +8,11 @@
 
 <script>
 export default {
-  name: "tabbar"
+  name: "tabbar",
 };
 </script>
 
-<style>
+<style scoped>
 /* @import url(../../assets/css/tabbar/style.css); */
 .tabBar {
   height: 49px;
@@ -22,6 +22,7 @@ export default {
   bottom: 0;
   width: 100%;
   box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
   background-color: #f6f6f6;
 }
 </style>

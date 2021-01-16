@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <mainTabbar />
-    <router-view />
+    <keep-alive exclude="Detail">
+      <router-view />
+    </keep-alive>
+
+    <mainTabbar v-if="$route.meta.showTabbar" />
   </div>
 </template>
 
