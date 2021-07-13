@@ -136,16 +136,7 @@ export default {
 </script>
 
 <style scoped>
-#home {
-  /* padding-top: 44px; */
-  /* padding-bottom: 49px; */
-}
 .homenavbar {
-  /* position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 100; */
   background-color: var(--color-tint);
   color: #fff;
 }

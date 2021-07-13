@@ -1,22 +1,22 @@
 <template>
-  <div id="home_swiper">
-    <mt-swipe class="swiper" :auto="3000">
-      <mt-swipe-item class="swiper_item" v-for="item in banners">
+  <div class="home_swiper">
+    <Swiper>
+      <SwiperItem v-for="item in banners">
         <a :href="item.link">
           <img :src="item.image" @load="ImgLoad" />
         </a>
-      </mt-swipe-item>
-    </mt-swipe>
+      </SwiperItem>
+    </Swiper>
   </div>
 </template>
 
 <script>
-import { Swipe, SwipeItem } from "mint-ui";
+import { Swiper, SwiperItem } from "components/common/swiper";
 export default {
   name: "HomeSwiper",
   components: {
-    "mt-swipe": Swipe,
-    "mt-swipe-item": SwipeItem,
+    Swiper,
+    SwiperItem,
   },
   props: {
     banners: {
@@ -43,13 +43,4 @@ export default {
 </script>
 
 <style scoped>
-.swiper {
-  height: 195.18px;
-}
-.swiper_item {
-  height: 100%;
-}
-#home_swiper img {
-  width: 100%;
-}
 </style>

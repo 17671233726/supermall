@@ -5,12 +5,18 @@
     <div><img src="~assets/img/profile/vip.svg" />会员卡</div>
     <div><img src="~assets/img/profile/cart.svg" />我的购物车</div>
     <div><img src="~assets/img/profile/shopping.svg" />下载购物APP</div>
+    <div @click="goCommunity"><img src="~assets/img/profile/shopping.svg" />蘑菇社区</div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProfileOption",
+  methods:{
+    goCommunity(){
+       this.$router.push("/community")
+    }
+  }
 };
 </script>
 

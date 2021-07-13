@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <keep-alive exclude="Detail">
-      <router-view />
-    </keep-alive>
+    <transition mode="out-in">
+      <keep-alive exclude="Detail">
+        <router-view />
+      </keep-alive>
+    </transition>
 
     <mainTabbar v-if="$route.meta.showTabbar" />
   </div>
@@ -20,4 +22,13 @@ export default {
 
 <style scoped>
 @import "assets/css/base.css";
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.2s;
+}
 </style>

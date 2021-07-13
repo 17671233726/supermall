@@ -1,19 +1,32 @@
 <template>
   <div class="profile_top">
-    <div class="user_img"><img src="~assets/img/profile/avatar.svg" /></div>
+    <div class="user_img"><img :src="userInfo?userInfo.avatarUrl:'~assets/img/profile/avatar.svg'" /></div>
     <div class="user_info">
-      <div class="login">注册/登录</div>
+      <div class="login">{{userInfo?userInfo.name:'注册/登录'}}</div>
       <div class="user_phone">
         <img src="~assets/img/profile/phone.svg" />暂无绑定手机号
       </div>
     </div>
-    <div class="more">></div>
+    <div class="more" @click="changeUserInfo">></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "ProfileTop",
+  props:{
+    userInfo:{
+      type:Object,
+      default(){
+        return {}
+      }
+    }
+  },
+  methods:{
+    changeUserInfo(){
+      // console.log("用户信息");
+    }
+  }
 };
 </script>
 
@@ -27,7 +40,9 @@ export default {
 .user_img {
   width: 70px;
   height: 70px;
-  flex: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  flex: 1.1;
 }
 .user_img img {
   width: 100%;

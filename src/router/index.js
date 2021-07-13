@@ -8,6 +8,11 @@ const Cart = () => import("views/cart/Cart")
 const Profile = () => import("views/profile/Profile")
 const Detail = () => import("views/detail/Detail");
 
+const Login = () => import("views/profile/childComps/login/Login")
+const Register = () => import("views/profile/childComps/register/Register")
+
+const Community=()=>import("views/community/Community")
+
 const routes = [
     {
         path: '',
@@ -47,11 +52,22 @@ const routes = [
         meta: {
             showTabbar: false
         }
+    },
+    {
+        path: '/login',
+        component: Login
+    },
+    {
+        path: '/register',
+        component: Register
+    },
+    {
+        path:'/community',
+        component:Community
     }
 ]
 
 const router = new VueRouter({
     routes,
-    mode: 'history'
 })
 export default router

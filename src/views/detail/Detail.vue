@@ -17,13 +17,23 @@
     </Scroll>
     <DetailBottomBar @addCart="addToCart" />
     <BackTop v-show="isShow" @click.native="backClick" />
-    <DetailSelector
+    <!-- <DetailSelector       //添加类名的方式实现弹出选择动画
       class="detail_selector"
       :class="{ select: isSelect }"
       :sku-info="skuInfo"
       @selectClose="close"
       @determine="determineAddToCart"
-    />
+    /> -->
+    <transition @before-enter="beforeEnter" @enter="enter" @leave="leave">
+      <!--transition组件的方式实现弹出选择动画-->
+      <DetailSelector
+        v-show="isSelect"
+        class="detail_selector"
+        :sku-info="skuInfo"
+        @selectClose="close"
+        @determine="determineAddToCart"
+      />
+    </transition>
   </div>
 </template>
 
@@ -117,9 +127,29 @@ export default {
 
   methods: {
     ...mapActions(["addCart"]),
+    //选择框显示隐藏动画
+    //动画进入前
+    beforeEnter(el) {
+      el.style.bottom = "-75vh";
+    },
+    //动画进入
+    enter(el) {
+      el.offsetWidth;
+      el.style.bottom = "0";
+    },
+    //动画离开
+    leave(el) {
+      el.style.bottom = "-75vh";
+    },
+    //点击加入购物车显示选择框
     addToCart() {
       this.isSelect = true;
     },
+    //关闭选择框
+    close() {
+      this.isSelect = false;
+    },
+    //使用vuex加入购物车
     determineAddToCart(goodsinfo) {
       let product = {};
       product.iid = this.iid;
@@ -131,12 +161,15 @@ export default {
       product.selected = '"' + goodsinfo.style + '""' + goodsinfo.size + '"';
       product.counter = goodsinfo.count;
       this.addCart(product).then((res) => {
-        this.$toast.show(res);
+        //actions返回promise
+        this.$toast.show(res); //使用封装好的toast组件
       });
     },
+    //点击navbar获取当前index,使用index取出数组中对应offsetTop
     navItemClick(index) {
       this.$refs.scroll.scrollTo(0, -this.navItemTopY[index]);
     },
+    //监听滚动
     contentScroll(position) {
       let positionY = -position.y;
       for (let i = 0; i < this.navItemTopY.length - 1; i++) {
@@ -149,21 +182,21 @@ export default {
           this.$refs.navbar.currentIndex = this.currentIndex;
         }
       }
+      //调用混入mixin中的方法传入position
       this.listenerIsShow(position);
     },
+    //图片加载完刷新scroll的高度
     imageLoad() {
       this.$refs.scroll.refresh();
       this.getTabOffsetTop();
     },
+    //获取navbar中对应区域的offsetTop
     getTabOffsetTop() {
       this.navItemTopY.push(0);
       this.navItemTopY.push(this.$refs.params.$el.offsetTop - 44);
       this.navItemTopY.push(this.$refs.comment.$el.offsetTop - 44);
       this.navItemTopY.push(this.$refs.recommend.$el.offsetTop - 44);
       this.navItemTopY.push(Number.MAX_VALUE);
-    },
-    close() {
-      this.isSelect = false;
     },
   },
 };
@@ -176,21 +209,5 @@ export default {
 }
 .detail_selector {
   transition: all 0.2s linear;
-  /* height: 0;
-  overflow: hidden; */
-  /* top: 570px; */
-  bottom: -75vh;
-  /* top: none;
-  bottom: 0; */
-  /* top: none;
-  bottom: 0; */
-  /* bottom: 0; */
-  /* top: none; */
-
-  /* bottom: 0; */
-}
-.select {
-  /* top: 142px; */
-  bottom: 0;
 }
 </style>

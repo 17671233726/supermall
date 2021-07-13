@@ -1,13 +1,13 @@
 <template>
-  <Swiper class="detail_swiper">
-    <SwiperItem v-for="item in topImages">
+  <mt-swipe class="swiper" :auto="3000">
+    <mt-swipe-item class="swiper_item" v-for="item in topImages">
       <img :src="item" />
-    </SwiperItem>
-  </Swiper>
+    </mt-swipe-item>
+  </mt-swipe>
 </template>
 
 <script>
-import { Swiper, SwiperItem } from "components/common/swiper";
+import { Swipe, SwipeItem } from "mint-ui";
 export default {
   name: "DetailSwiper",
   props: {
@@ -19,15 +19,18 @@ export default {
     },
   },
   components: {
-    Swiper,
-    SwiperItem,
+    "mt-swipe": Swipe,
+    "mt-swipe-item": SwipeItem,
   },
 };
 </script>
 
 <style scoped>
-.detail_swiper {
+.swiper {
   height: 300px;
   overflow: hidden;
+}
+.swiper img {
+  width: 100%;
 }
 </style>
