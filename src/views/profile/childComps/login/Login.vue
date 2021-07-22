@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { login } from "network/profile";
+import { login,getUserInfo } from "network/profile";
 
 import NavBar from "components/common/navbar/NavBar";
 import { Field, Button,Toast } from "mint-ui";
@@ -58,16 +58,19 @@ export default {
   },
   methods: {
    async handleClick() {
+    //  const res2=await getUserInfo(3);
+    //     console.log(res2);
       const res=await login(this.loginForm);
-      if(res.status==200){
+      if(res){
+        window.sessionStorage.setItem('token',res.data.token)
+        const res2=await getUserInfo(res.data.id);
+        const userInfo={name:res2.data.name,avatarUrl:res2.data.avatarUrl};
+        window.sessionStorage.setItem('userInfo',JSON.stringify(userInfo));
         Toast("登录成功");
-        this.$router.push("/profile");
-        this.$bus.$emit("login",res.data.id);
+        this.$router.push("/profile")
+      }else{
+         Toast("账号或密码不正确");
       }
-      if(!window.sessionStorage.getItem('token')){
-          window.sessionStorage.setItem('token',res.data.token)
-      }
-    
     },
     back() {
       this.$router.back();

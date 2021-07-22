@@ -4,7 +4,6 @@
     <ProfileTop :userInfo="userInfo" @click.native="handleClick" />
     <ProfileInfo />
     <ProfileOption />
-    <button @click="getmoment">get</button>
   </div>
 </template>
 
@@ -28,13 +27,9 @@ export default {
       userInfo:null
     };
   },
-  async created() {
-     const res=await getUserInfo(3);
-      this.userInfo=res.data
-    this.$bus.$on('login',async (id)=>{
-      const res=await getUserInfo(id);
-      this.userInfo=res.data
-    });
+  activated(){
+    const userInfo=window.sessionStorage.getItem('userInfo');
+    this.userInfo=JSON.parse(userInfo)
   },
   methods: {
     handleClick() {
@@ -42,11 +37,6 @@ export default {
         path: "/login",
       });
     },
-  async getmoment(){
-      console.log(getMomentList);
-      const res=await getMomentList();
-      console.log(res);
-    }
   },
 };
 </script>

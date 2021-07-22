@@ -35,6 +35,7 @@ export function login({name,password}){
     })
 }
 
+
 export function getUserInfo(id){
     return request2({
         url:`/users/${id}/info`,
@@ -53,5 +54,15 @@ export function getVedio(id){
     return request2({
         url:`/upload/getVedio`,
         method:"get",
+    })
+}
+
+export function publishMoment(content){
+    return request2({
+        url:`/moment`,
+        method:"post",
+        data:{
+            content
+        },
     })
 }

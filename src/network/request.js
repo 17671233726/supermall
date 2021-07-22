@@ -23,7 +23,7 @@ export function request2(config) {
         baseURL: 'http://120.79.146.219:8000',
         timeout: 5000,
         headers:{
-            Authorization:token
+            Authorization:window.sessionStorage.getItem('token')
         }
     });
     instance.interceptors.request.use(con => {

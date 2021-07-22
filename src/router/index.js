@@ -12,6 +12,7 @@ const Login = () => import("views/profile/childComps/login/Login")
 const Register = () => import("views/profile/childComps/register/Register")
 
 const Community=()=>import("views/community/Community")
+const ProfileSet=()=>import("views/profile/childComps/ProfileSet")
 
 const routes = [
     {
@@ -64,10 +65,22 @@ const routes = [
     {
         path:'/community',
         component:Community
+    },
+    {
+        path:'/profileset',
+        component:ProfileSet
     }
 ]
 
 const router = new VueRouter({
     routes,
 })
+
+router.beforeEach((to,from,next)=>{
+    if (to.path == '/login'){
+        if(window.sessionStorage.getItem('token')) return next('/profileset');
+    }
+    next();
+})
+
 export default router

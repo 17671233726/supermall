@@ -6,7 +6,6 @@ import Toast from "./components/common/toast/index"
 import Fastclick from "fastclick"
 import VueLazyLoad from "vue-lazyload"
 
-
 Vue.use(Toast);
 
 Vue.use(VueLazyLoad);
@@ -20,3 +19,4 @@ new Vue({
   router,
   store
 }).$mount('#app')
+  
